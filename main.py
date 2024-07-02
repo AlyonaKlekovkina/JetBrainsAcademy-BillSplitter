@@ -13,11 +13,20 @@ def get_number_of_people():
 def create_dict():
     global number_of_people
     list_of_people = {}
+    n = number_of_people
     print("Enter the name of every friend (including you), each on a new line:")
-    while number_of_people > 0:
+    while n > 0:
         inp = input()
         list_of_people.update({inp: 0})
-        number_of_people -= 1
+        n -= 1
+    print('\n')
+    total_bill = int(input('Enter the total bill value:\n'))
+    split_value = round(total_bill/number_of_people, 2)
+    l = len(list_of_people)
+    while l > 0:
+        for v in list_of_people:
+            list_of_people.update({v: split_value})
+            l -= 1
     return list_of_people
 
 
