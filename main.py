@@ -14,7 +14,7 @@ def get_number_of_people():
 
 
 def create_dict():
-    global number_of_people
+    global number_of_people, total_bill
     list_of_people = {}
     n = number_of_people
     print("Enter the name of every friend (including you), each on a new line:")
@@ -33,13 +33,25 @@ def create_dict():
 
 
 def who_is_lucky():
-    global the_list
+    global the_list, number_of_people
     get_answer = input('Do you want to use the "Who is lucky?" feature? Write Yes/No:\n')
     if get_answer == 'Yes':
         r = random.choice(list(the_list.keys()))
         print(r, 'is the lucky one!')
+        n = number_of_people-1
+        to_pay = total_bill/n
+        while n > 0:
+            for k, v in the_list.items():
+                if k != r:
+                    the_list.update({k: to_pay})
+                    n -= 1
+                elif k == r:
+                    the_list.update({k: 0})
+                    n -= 1
+        return the_list
     else:
         print('No one is going to be lucky')
+        return the_list
 
 
 number_of_people = get_number_of_people()
@@ -48,5 +60,6 @@ if number_of_people == "No one is joining for the party":
 else:
     number_of_people = int(number_of_people)
     the_list = create_dict()
-    who_is_lucky()
+    result = who_is_lucky()
+    print(result)
 
